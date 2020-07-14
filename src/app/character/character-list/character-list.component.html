@@ -1,0 +1,43 @@
+<div class="container py-5 ">
+  <div class="text-center">
+    <div class="container">
+      <h1>Personagens Breaking Bad</h1>
+      <p class="lead text-muted">Breaking Bad é uma série de televisão americana criada e produzida por Vince Gilligan. Ela retrata a vida do químico Walter White, um homem brilhante frustrado em dar aulas para adolescentes do ensino médio enquanto lida com um filho sofrendo de paralisia cerebral, uma esposa grávida e dívidas intermináveis. </p>
+      
+      <p class="lead text-muted">Abaixo segue os personagens da série.</p>
+    </div>
+  </div>
+</div>
+<div class="album bg-light">
+  <div class="container">
+    <form class="form-inline col-md-12">
+      <input [(ngModel)]="pesquisa" [ngModelOptions]="{standalone: true}" class="myform-control" type="search" placeholder="Pesquise pelo nome do personagem" aria-label="Pesquisa">
+        <button (click)="pesquisar()" type="submit" class="btn btn-light"><i class="mdi mdi-magnify"></i></button>
+    </form>
+    
+    <div *ngIf="!hasCharacters() && isSearch" class="d-flex justify-content-center">
+      <h4>Não existe personagens com o nome pesquisado</h4>
+    </div>
+    <div class="row">      
+      <div class="col-md-4" *ngFor="let character of characters">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header text-center"><strong>{{character.name}}</strong></div>
+          <img src="{{character.img}}" class="card-img-top text-center" alt="..." height="75%" width="100%">
+          <div class="card-body">
+            <p class="card-text"><strong>Apelido:</strong> {{character.nickname}} <br> <strong>Data de nascimento:</strong> {{getDataNascimento(character)}} <br> <strong>Ator:</strong> {{character.portrayed}}</p>
+          </div>
+        </div>
+      </div>
+      <ngx-spinner
+          bdColor="rgba(51,51,51,0.8)"
+          color="#fff"
+          type="ball-rotate"
+        >
+          <p style="font-size: 20px; color: white">Carregando...</p>
+        </ngx-spinner>
+    </div>
+    <div *ngIf="hasCharacters()" class="d-flex justify-content-center">
+      <button *ngIf="hasMoreCharacters" (click)="buscarMaisPersonagens()" class="btn btn-outline-success">BUSCAR MAIS PERSONAGENS</button>
+    </div>
+  </div>
+</div>
